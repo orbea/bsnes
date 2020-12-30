@@ -66,13 +66,13 @@ hiro.objects := \
   $(object.path)/hiro-$(hiro).o \
   $(if $(filter windows,$(hiro)),$(object.path)/hiro-resource.o)
 
-$(object.path)/hiro-$(hiro).o: $(hiro.path)/hiro.cpp
+$(object.path)/hiro-$(hiro).o: $(hiro.path)/hiro.cpp maketree
 	$(if $(filter qt%,$(hiro)),$(info Compiling $(hiro.path)/qt/qt.moc ...))
 	$(if $(filter qt%,$(hiro)),@$(moc) -i -o $(hiro.path)/qt/qt.moc $(hiro.path)/qt/qt.hpp)
 	$(info Compiling $< ...)
 	@$(compiler) $(hiro.flags) $(flags) $(flags.deps) -c $< -o $@
 
-$(object.path)/hiro-resource.o: $(hiro.resource)
+$(object.path)/hiro-resource.o: $(hiro.resource) maketree
 	$(info Compiling $< ...)
 	@$(windres) $< $@
 

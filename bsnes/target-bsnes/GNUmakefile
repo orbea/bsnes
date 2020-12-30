@@ -1,10 +1,10 @@
 name := bsnes
 
-hiro.path := ../hiro
+hiro.path := $(srcdir)/../hiro
 hiro.resource := $(ui)/resource/bsnes.rc
 include $(hiro.path)/GNUmakefile
 
-ruby.path := ../ruby
+ruby.path := $(srcdir)/../ruby
 include $(ruby.path)/GNUmakefile
 
 objects += ui-bsnes ui-program ui-input ui-presentation
@@ -58,8 +58,8 @@ else ifneq ($(filter $(platform),linux bsd),)
 	cp $(ui)/resource/$(name).desktop $(DESTDIR)$(datarootdir)/applications/$(name).desktop
 	cp $(ui)/resource/$(name).png $(DESTDIR)$(datarootdir)/icons/hicolor/256x256/apps/$(name).png
 	cp $(ui)/resource/$(name).svg $(DESTDIR)$(datarootdir)/icons/hicolor/scalable/apps/$(name).svg
-	cp Database/* $(DESTDIR)$(datadir)/$(name)/Database/
-	cp -r ../shaders/* $(DESTDIR)$(datadir)/$(name)/Shaders/
+	cp $(srcdir)/Database/* $(DESTDIR)$(datadir)/$(name)/Database/
+	cp -r $(srcdir)/../shaders/* $(DESTDIR)$(datadir)/$(name)/Shaders/
 endif
 
 uninstall:

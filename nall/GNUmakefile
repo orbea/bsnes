@@ -155,6 +155,16 @@ endif
 # rules
 default: all;
 
+maketree: $(object.path)/.tag out/.tag
+
+$(object.path)/.tag:
+	@mkdir -p obj
+	@touch $@
+
+out/.tag:
+	@mkdir -p out
+	@touch $@
+
 nall.verbose:
 	$(info Compiler Flags:)
 	$(foreach n,$(sort $(call unique,$(flags))),$(if $(filter-out -I%,$n),$(info $([space]) $n)))

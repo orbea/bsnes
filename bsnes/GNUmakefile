@@ -1,9 +1,11 @@
+srcdir := $(abspath $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST))))))
+
 target := bsnes
 binary := application
 build := performance
 openmp := true
 local := true
-flags += -I. -I..
+flags += -I$(srcdir)/. -I$(srcdir)/..
 
 # in order for this to work, obj/lzma.o must be omitted or bsnes will hang on startup.
 # further, only the X-Video driver works reliably. OpenGL 3.2, OpenGL 2.0, and XShm crash bsnes.
@@ -17,7 +19,7 @@ ifeq ($(local),true)
   flags += -march=native
 endif
 
-nall.path := ../nall
+nall.path := $(srcdir)/../nall
 include $(nall.path)/GNUmakefile
 
 ifeq ($(platform),windows)
@@ -46,16 +48,16 @@ endif
 
 objects := libco emulator filter lzma
 
-obj/libco.o: ../libco/libco.c
-obj/emulator.o: emulator/emulator.cpp
-obj/filter.o: filter/filter.cpp
-obj/lzma.o: lzma/lzma.cpp
+obj/libco.o: $(srcdir)/../libco/libco.c maketree
+obj/emulator.o: $(srcdir)/emulator/emulator.cpp maketree
+obj/filter.o: $(srcdir)/filter/filter.cpp maketree
+obj/lzma.o: $(srcdir)/lzma/lzma.cpp maketree
 
-include sfc/GNUmakefile
-include gb/GNUmakefile
-include processor/GNUmakefile
+include $(srcdir)/sfc/GNUmakefile
+include $(srcdir)/gb/GNUmakefile
+include $(srcdir)/processor/GNUmakefile
 
-ui := target-$(target)
+ui := $(srcdir)/target-$(target)
 include $(ui)/GNUmakefile
 -include obj/*.d
 

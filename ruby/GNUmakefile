@@ -71,7 +71,7 @@ endif
 
 ruby.objects := $(object.path)/ruby.o
 
-$(object.path)/ruby.o: $(ruby.path)/ruby.cpp $(call rwildcard,$(ruby.path))
+$(object.path)/ruby.o: $(ruby.path)/ruby.cpp $(call rwildcard,$(ruby.path)) maketree
 	$(info Compiling $< ...)
 	@$(compiler) $(ruby.flags) $(flags) $(flags.deps) -c $< -o $@
 
